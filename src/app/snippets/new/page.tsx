@@ -18,9 +18,9 @@ const CreateSnippetPage = () => {
   </div>
 
   <div className="m-2">
-    <Button type="submit" className="mt-6">
+    {/* <Button type="submit" className="mt-6">
       New
-    </Button>
+    </Button> */}
   </div>
 </form>
 
