@@ -5,26 +5,30 @@ import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 
 const CreateSnippetPage = () => {
-    return (
-       <form className="space-y-4">
-  <div className="m-2 space-y-2">
-    <Label htmlFor="title">Title</Label>
-    <Input type="text" name="title" id="title" className="w-full" />
-  </div>
 
-  <div className="m-2 space-y-2">
-    <Label htmlFor="code">Code</Label>
-    <Textarea name="code" id="code" className="w-full" />
-  </div>
+  async function createSnippet(formdata:FormData){
+    "use server" //use server directive
+  }
 
-  <div className="m-2">
-    {/* <Button type="submit" className="mt-6">
+  return (
+    <form className="space-y-4">
+      <div className="m-2 space-y-2">
+        <Label >Title</Label>
+        <Input type="text" name="title" id="title" className="w-full" />
+      </div>
+      <div className="m-2 space-y-2">
+        <Label htmlFor="code">Code</Label>
+        <Textarea name="code" id="code" className="w-full" />
+      </div>
+
+      <div className="m-2">
+        {/* <Button type="submit" className="mt-6">
       New
     </Button> */}
-  </div>
-</form>
+      </div>
+    </form>
 
-    )
+  )
 }
 
 export default CreateSnippetPage
