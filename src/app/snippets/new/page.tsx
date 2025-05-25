@@ -1,34 +1,70 @@
-import React from 'react'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Button } from '@/components/ui/button'
+import React from "react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { prisma } from "@/lib/prisma";
+import { redirect } from "next/navigation";
 
 const CreateSnippetPage = () => {
+  async function createSnippet(formData: FormData) {
+    "use server"; // server action
 
-  async function createSnippet(formdata:FormData){
-    "use server" //use server directive
+    const title = formData.get("title") as string;
+    const code = formData.get("code") as string;
+
+    const snippet = await prisma.snippet.create({
+      data: { title, code },
+    });
+
+    console.log("Created snippet:", snippet);
+    redirect("/");
   }
 
   return (
-    <form className="space-y-4">
-      <div className="m-2 space-y-2">
-        <Label >Title</Label>
-        <Input type="text" name="title" id="title" className="w-full" />
-      </div>
-      <div className="m-2 space-y-2">
-        <Label htmlFor="code">Code</Label>
-        <Textarea name="code" id="code" className="w-full" />
-      </div>
+    <section className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md border">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+        Create New Snippet
+      </h1>
 
-      <div className="m-2">
-        {/* <Button type="submit" className="mt-6">
-      New
-    </Button> */}
-      </div>
-    </form>
+      <form action={createSnippet} className="space-y-6">
+        {/* Title Input */}
+        <div className="space-y-2">
+          <Label htmlFor="title" className="text-gray-700">
+            Title
+          </Label>
+          <Input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Enter snippet title"
+            className="w-full"
+          />
+        </div>
 
-  )
-}
+        {/* Code Textarea */}
+        <div className="space-y-2">
+          <Label htmlFor="code" className="text-gray-700">
+            Code
+          </Label>
+          <Textarea
+            name="code"
+            id="code"
+            placeholder="Paste your code here..."
+            rows={8}
+            className="w-full font-mono"
+          />
+        </div>
 
-export default CreateSnippetPage
+        {/* Submit Button */}
+        <div className="pt-4 text-right">
+          <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">
+            Save Snippet
+          </Button>
+        </div>
+      </form>
+    </section>
+  );
+};
+
+export default CreateSnippetPage;

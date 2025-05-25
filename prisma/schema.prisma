@@ -2,7 +2,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+ 
 }
 
 datasource db {
@@ -10,8 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Snippets{
-  id int @id @default(autoincrement())
-  title string
-  code string
+model Snippet {
+  id    Int    @id @default(autoincrement()) // perfect!
+  title String
+  code  String
 }
+
+
